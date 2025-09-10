@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 // app/layout.tsx  (or src/app/layout.tsx)
 export const metadata = {
   title: "Todo + Supabase + Stripe",
@@ -28,12 +30,12 @@ export default function RootLayout({
               marginBottom: 24,
             }}
           >
-            <a
+            <Link
               href="/"
               style={{ fontWeight: 700, textDecoration: "none", color: "#fff" }}
             >
               📝 TinyTodo
-            </a>
+            </Link>
             <nav style={{ display: "flex", gap: 12 }}>
               <a
                 href="/login"
