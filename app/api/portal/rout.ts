@@ -1,6 +1,6 @@
-import Stripe from "stripe";
+// import Stripe from "stripe";
 import { NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+// import { createClient } from "@supabase/supabase-js";
 
 export const runtime = "nodejs";
 
@@ -8,10 +8,10 @@ export async function POST() {
   try {
     // Get current user via Supabase access token from cookies (client just calls this)
     // Simpler: ask the client to be logged in and send the JWT on the cookie automatically
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY! // service role so we can read regardless of RLS
-    );
+    // const supabase = createClient(
+    //   process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    //   process.env.SUPABASE_SERVICE_ROLE_KEY! // service role so we can read regardless of RLS
+    // );
 
     // Instead of reading from cookies, ask the client to rely on server reading profile by their auth uid.
     // We need the user id; the simplest is: client is authenticated, and we store stripe_customer_id in profiles.
@@ -24,8 +24,10 @@ export async function POST() {
       { error: "Add auth verification for portal in production." },
       { status: 400 }
     );
-  } catch (e: any) {
-    console.error(e);
-    return NextResponse.json({ error: e.message }, { status: 500 });
+  } catch (err) {
+    console.error(err);
+    const message =
+      err instanceof Error ? err.message : "Internal server error";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
