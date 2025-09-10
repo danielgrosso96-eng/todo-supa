@@ -1,4 +1,5 @@
 import Link from "next/link";
+import "./globals.css";
 
 // app/layout.tsx  (or src/app/layout.tsx)
 export const metadata = {
